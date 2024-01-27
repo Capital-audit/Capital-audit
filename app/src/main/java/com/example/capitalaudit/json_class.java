@@ -1,12 +1,18 @@
 package com.example.capitalaudit;
+import android.util.Log;
+
 import com.google.gson.Gson;
 
 public class json_class {
 
-    public static boolean login_to_json(String username, String password)
+    public static String login_to_json(String username, String password)
     {
-
-        return false;
+        Gson gson = new Gson();
+        java.util.Map<String, String> userData = new java.util.HashMap<>();
+        userData.put("username", username);
+        userData.put("password", password);
+        String jsonString = gson.toJson(userData);
+        return jsonString;
     }
 
     public static boolean payement_to_json()

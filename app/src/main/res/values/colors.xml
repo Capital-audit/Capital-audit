@@ -2,4 +2,8 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="background_color">#F2F2F2</color> #Offwhite
+    <color name="primary_color">#FF4BB73A</color> #Green
+    <color name="secondary_color">#DCFFDE</color> #Shallow green
+    <color name="accent_color">#9BC794</color> #Light green
 </resources>
