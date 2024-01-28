@@ -1,19 +1,49 @@
 package com.example.capitalaudit;
-import com.example.capitalaudit.json_class.*;
-import com.example.capitalaudit.api_class.*;
-import com.example.capitalaudit.Util.*;
 
-import java.io.IOException;
+import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import com.example.capitalaudit.api_response.*;
 
-public class button_class {
-    public static boolean login_button(String username, String password) throws IOException {
-        api_class api = new api_class();
-        String hashedUsr = Util.cred_hasher(username);
-        String hashedPwd = Util.cred_hasher(password);
-        String jsonString = json_class.login_to_json(hashedUsr, hashedPwd);
-        String response = api.login_request(jsonString);
+public class button_class implements LoginAsyncTask.LoginCallback {
+    private static button_class instance;
+    private Context context;
+    public button_class(Context context)
+    {
+        this.context = context;
+    }
+    public static void login_button(Button button, Context context) {
+        if(instance == null){
+            instance = new button_class(context);
+        }
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String username = ((EditText) v.getRootView().findViewById(R.id.username_input)).getText().toString();
+                String password = ((EditText) v.getRootView().findViewById(R.id.password_input)).getText().toString();
 
+                // Call the AsyncTask to perform login in the background
+                new LoginAsyncTask(context, instance).execute(username, password);
 
-        return false;
+            }
+        });
+    }
+
+    @Override
+    public void onLoginResult(api_response result) {
+        // Handle the login result here
+        if (result.isSuccess()) {
+
+            Log.d("Test", "Success logged in");
+            Intent intent = new Intent(context, HomeActivity.class);
+            context.startActivity(intent);
+        } else {
+            // Error response
+            Log.e("Test", "Failed logged in: " + result.getResponse());
+        }
     }
 }
+

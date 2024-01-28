@@ -12,6 +12,7 @@ public class json_class {
         userData.put("username", username);
         userData.put("password", password);
         String jsonString = gson.toJson(userData);
+        Log.d("test", "JSON Query: " + jsonString);
         return jsonString;
     }
 

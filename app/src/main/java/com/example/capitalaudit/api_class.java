@@ -1,4 +1,6 @@
 package com.example.capitalaudit;
+import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -6,15 +8,20 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Map;
 import java.util.HashMap;
+import com.example.capitalaudit.api_response.*;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 
 public class api_class {
     String access_token;
-    public String login_request(String json) throws IOException {
-        try {
+    public api_response login_request(String json) throws IOException {
 
+        try {
+            Log.d("test", "json" + json);
             Map<String, String> headers = new HashMap<>();
             headers.put("Content-Type", "application/json");
-            String url = "http://localhost:3834/login";
+            String url = "http://10.0.2.2:3834/login";
 
             URL apiUrl = new URL(url);
 
@@ -24,35 +31,56 @@ public class api_class {
                     connection.setRequestProperty(entry.getKey(), entry.getValue());
                 }
             }
+
+            Log.d("Test", "Request Headers: " + connection.getRequestProperties());
+
             connection.setRequestMethod("POST");
 
+            connection.setDoOutput(true);
+            connection.getOutputStream().write(json.getBytes("UTF-8"));
+
             int responseCode = connection.getResponseCode();
-            System.out.println("Response Code: " + responseCode);
+            Log.d("Test", "Response error: " + responseCode);
+
 
             if (responseCode >= 200 && responseCode < 300) {
-                String accessToken = connection.getHeaderField("access_token");
 
-                if (accessToken != null && !accessToken.isEmpty()) {
+
+                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String line;
+                StringBuilder response = new StringBuilder();
+
+                while ((line = reader.readLine()) != null) {
+                    response.append(line);
+                }
+
+                JsonObject jsonResponse = JsonParser.parseString(response.toString()).getAsJsonObject();
+                boolean success = jsonResponse.getAsJsonPrimitive("success").getAsBoolean();
+                String errorMessage = jsonResponse.has("error_message") ?
+                        jsonResponse.getAsJsonPrimitive("error_message").getAsString() : "";
+
+                if (jsonResponse.has("access_token")) {
+                    String accessToken = jsonResponse.getAsJsonPrimitive("access_token").getAsString();
                     setAccess_token(accessToken);
                 } else {
-                    System.out.println("Access Token not found in headers");
+                    Log.d("Test", "Access Token not found in JSON response");
+                }
+
+                connection.disconnect();
+
+                if (success) {
+                    return new api_response(true, response.toString());
+                } else {
+                    throw new IOException(errorMessage);
                 }
             }
-            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            String line;
-            StringBuilder response = new StringBuilder();
-
-            while ((line = reader.readLine()) != null) {
-                response.append(line);
-            }
-
-            connection.disconnect();
-            return response.toString();
         } catch (IOException e) {
             e.printStackTrace();
-
-            return null;
+            Log.d("Test", "Exception caused in api_class" + e);
+            return new api_response(false, e.getMessage());
         }
+        return new api_response(false, null);
+
     }
 
 
