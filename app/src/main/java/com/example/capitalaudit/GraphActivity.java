@@ -3,7 +3,9 @@ package com.example.capitalaudit;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
+
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -12,6 +14,12 @@ public class GraphActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        CapitalAudit capitalAudit = (CapitalAudit) getApplication();
+        button_class buttonClass = capitalAudit.getButtonClass();
+        buttonClass.refreshPayments();
+
+
         setContentView(R.layout.activity_graph);
         setContentView(R.layout.activity_dataset);
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);

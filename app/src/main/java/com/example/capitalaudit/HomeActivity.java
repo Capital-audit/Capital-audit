@@ -10,12 +10,19 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomeActivity extends AppCompatActivity {
 
+    CapitalAudit capitalAudit;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        CapitalAudit capitalAudit = (CapitalAudit) getApplication();
+        button_class buttonClass = capitalAudit.getButtonClass();
+        buttonClass.refreshPayments();
+        menuBarSetup();
+    }
 
-        button_class instance = button_class.getInstance();
-        new RefreshPaymentsAsyncTask(instance.context).execute();
+    private boolean menuBarSetup()
+    {
         setContentView(R.layout.activity_home);
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.Home);
@@ -49,7 +56,9 @@ public class HomeActivity extends AppCompatActivity {
             return false;
 
         });
+        return false;
     }
+
     @Override
     public void startActivity(Intent intent) {
         super.startActivity(intent);

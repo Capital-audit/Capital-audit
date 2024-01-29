@@ -6,18 +6,31 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import com.example.capitalaudit.api_response.*;
 
-public class button_class implements LoginAsyncTask.LoginCallback {
+public class button_class implements LoginAsyncTask.LoginCallback, PaymentApiAsyncTask.onPaymentAddResult, RefreshPaymentsAsyncTask.refreshResult {
     private static button_class instance;
+    private api_class api;
     Context context;
-    public button_class(Context context)
+    PaymentStorage paymentStorage;
+    public button_class()
     {
-        this.context = context;
+        api = new api_class();
+        setApi(api);
+        new PaymentStorage();
+    }
+
+    public api_class getApi()
+    {
+        return api;
+    }
+
+    public void setApi(api_class api)
+    {
+        this.api = api;
     }
     public static void login_button(Button button, Context context) {
         if(instance == null){
-            instance = new button_class(context);
+            instance = new button_class();
         }
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -34,7 +47,6 @@ public class button_class implements LoginAsyncTask.LoginCallback {
 
     @Override
     public void onLoginResult(api_response result) {
-        // Handle the login result here
         if (result.isSuccess()) {
 
             Log.d("Test", "Success logged in");
@@ -49,23 +61,57 @@ public class button_class implements LoginAsyncTask.LoginCallback {
 
     public static boolean addTransactionButton(Button button, Context  context)
     {
+        //Adding a new transaction needs updating. Need to get user input create new object.
+        //transform to json and then send to db. Right now what works is:
+        //Api_Class, json_Class, Async and this needs adjusting to get userinput and then convert
+        //to Json.
         if(instance == null){
-            instance = new button_class(context);
+            instance = new button_class();
         }
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-
-                // Call the AsyncTask to perform login in the background
-                new RefreshPaymentsAsyncTask(instance.context).execute();
+                new PaymentApiAsyncTask(getInstance().api, instance);
             }
         });
         return false;
     }
 
-    public static button_class getInstance() {
+    @Override
+    public void onPaymentAddResult(api_response result) {
+        if (result.isSuccess()) {
+
+            Log.d("Test", "Success.. Added task");
+
+        } else {
+            // Error response
+            Log.e("Test", "Failed to add task " + result.getResponse());
+        }
+    }
+
+
+
+
+    public static button_class getInstance()
+    {
         return instance;
     }
+
+
+    public void refreshPayments()
+    {
+        new RefreshPaymentsAsyncTask(getInstance().api, instance).execute();
+    }
+
+    @Override
+    public void refreshresult(api_response response)
+    {
+        //Need to go through all JSON and create objects out of response.
+        //Then its good to go.
+    }
+
 }
+
+
 

@@ -202,6 +202,7 @@ public class api_class {
                 String errorMessage = jsonResponse.has("error_message") ?
                         jsonResponse.getAsJsonPrimitive("error_message").getAsString() : "";
 
+                //Need to change so that it checks for data. Will return api_response, with a apiResponse as data.
                 if (jsonResponse.has("access_token")) {
                     String accessToken = jsonResponse.getAsJsonPrimitive("access_token").getAsString();
 

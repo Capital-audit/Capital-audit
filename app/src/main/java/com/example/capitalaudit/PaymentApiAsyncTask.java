@@ -13,28 +13,23 @@ import java.io.IOException;
 import java.lang.ref.WeakReference;
 
 public class PaymentApiAsyncTask extends AsyncTask<payment_class, Void, api_response> {
-    private WeakReference<Context> contextRef;
-    private LoginCallback loginCallback;
+    private api_class api;
+    private onPaymentAddResult paymentCallBack;
 
-    public interface LoginCallback {
-        void onLoginResult(api_response result);
-    }
-    public PaymentApiAsyncTask(Context context,LoginCallback callback) {
-        contextRef = new WeakReference<>(context);
-        loginCallback = callback;
+
+    public PaymentApiAsyncTask(api_class api, onPaymentAddResult paymentCallBack) {
+        this.api = api;
+        this.paymentCallBack = paymentCallBack;
     }
 
     @Override
     protected api_response doInBackground(payment_class... params) {
-        Context context = contextRef.get();
 
-        if (context == null) {
-            return new api_response(false, "Context is null");
-        }
+
 
         try {
             Log.d("Test", "payment_api activated");
-            api_class api = new api_class();
+
 
             String jsonString = json_class.payement_to_json(params[0]);
             return api.add_payment_api(jsonString);
@@ -47,6 +42,11 @@ public class PaymentApiAsyncTask extends AsyncTask<payment_class, Void, api_resp
     @Override
     protected void onPostExecute(api_response result) {
         // Handle the result as needed
+        paymentCallBack.onPaymentAddResult(result);
+    }
+
+    public interface onPaymentAddResult {
+        void onPaymentAddResult(api_response response);
     }
 }
 
