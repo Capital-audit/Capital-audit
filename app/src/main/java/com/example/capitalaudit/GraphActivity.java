@@ -18,8 +18,11 @@ public class GraphActivity extends AppCompatActivity {
         CapitalAudit capitalAudit = (CapitalAudit) getApplication();
         button_class buttonClass = capitalAudit.getButtonClass();
         buttonClass.refreshPayments();
+        setUpNavBar();
+    }
 
-
+    private boolean setUpNavBar()
+    {
         setContentView(R.layout.activity_graph);
         setContentView(R.layout.activity_dataset);
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
@@ -54,7 +57,9 @@ public class GraphActivity extends AppCompatActivity {
 
         });
         overridePendingTransition(0, 0);
+        return false;
     }
+
     @Override
     public void startActivity(Intent intent) {
         super.startActivity(intent);

@@ -12,6 +12,18 @@ public class AddPaymentActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        CapitalAudit capitalAudit = (CapitalAudit) getApplication();
+        button_class buttonClass = capitalAudit.getButtonClass();
+        buttonClass.refreshPayments();
+
+        setUpNavBar();
+    }
+
+
+
+
+    private boolean setUpNavBar()
+    {
         setContentView(R.layout.activity_add_payment);
         setContentView(R.layout.activity_dataset);
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
@@ -46,6 +58,7 @@ public class AddPaymentActivity extends AppCompatActivity {
 
         });
         overridePendingTransition(0, 0);
+        return false;
     }
     @Override
     public void startActivity(Intent intent) {

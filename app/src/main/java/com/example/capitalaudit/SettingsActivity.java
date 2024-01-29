@@ -14,6 +14,17 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        CapitalAudit capitalAudit = (CapitalAudit) getApplication();
+        button_class buttonClass = capitalAudit.getButtonClass();
+        buttonClass.refreshPayments();
+
+        setUpNavBar();
+    }
+
+
+    private boolean setUpNavBar()
+    {
         setContentView(R.layout.activity_settings);
         setContentView(R.layout.activity_dataset);
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
@@ -42,13 +53,15 @@ public class SettingsActivity extends AppCompatActivity {
                 startActivity(new Intent(SettingsActivity.this, SettingsActivity.class));
                 finish();
                 return true;
+            } else
+            {
+                return false;
             }
-
-            return false;
-
         });
         overridePendingTransition(0, 0);
+        return false;
     }
+
     @Override
     public void startActivity(Intent intent) {
         super.startActivity(intent);
