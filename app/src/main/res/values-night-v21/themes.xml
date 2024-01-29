@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Disable transitions -->
+        <item name="android:windowEnterTransition">@null</item>
+        <item name="android:windowExitTransition">@null</item>
+
+        <!-- or customize with your own transition animations -->
+        <!-- <item name="android:windowEnterTransition">@transition/your_custom_enter_transition</item> -->
+        <!-- <item name="android:windowExitTransition">@transition/your_custom_exit_transition</item> -->
+    </style>
+</resources>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Home"
+        android:icon="@drawable/baseline_home_24"
+        android:id="@+id/Home"
+        />
+    <item android:title="Graph"
+        android:icon="@drawable/baseline_bar_chart_24"
+        android:id="@+id/Graph"
+
+        />
+    <item android:title="New"
+        android:icon="@drawable/baseline_add_24"
+        android:id="@+id/New"
+
+        />
+    <item android:title="View"
+        android:icon="@drawable/baseline_dataset_24"
+        android:id="@+id/View"
+
+        />
+    <item android:title="Settings"
+        android:icon="@drawable/baseline_settings_24"
+        android:id="@+id/Settings"
+
+        />
+</menu>

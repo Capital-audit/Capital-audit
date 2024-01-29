@@ -10,7 +10,7 @@ import com.example.capitalaudit.api_response.*;
 
 public class button_class implements LoginAsyncTask.LoginCallback {
     private static button_class instance;
-    private Context context;
+    Context context;
     public button_class(Context context)
     {
         this.context = context;
@@ -44,6 +44,28 @@ public class button_class implements LoginAsyncTask.LoginCallback {
             // Error response
             Log.e("Test", "Failed logged in: " + result.getResponse());
         }
+    }
+
+
+    public static boolean addTransactionButton(Button button, Context  context)
+    {
+        if(instance == null){
+            instance = new button_class(context);
+        }
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                // Call the AsyncTask to perform login in the background
+                new RefreshPaymentsAsyncTask(instance.context).execute();
+            }
+        });
+        return false;
+    }
+
+    public static button_class getInstance() {
+        return instance;
     }
 }
 
