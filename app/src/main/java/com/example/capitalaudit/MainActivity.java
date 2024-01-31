@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.example.capitalaudit.json_class.*;
-import com.example.capitalaudit.button_class.*;
 import android.util.Log;
 
 
@@ -21,6 +20,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button signInButton = findViewById(R.id.login_btn);
-        button_class.login_button(signInButton, MainActivity.this);    }
+        CapitalAudit capitalAudit = CapitalAudit.getInstance();
+        api_class api = capitalAudit.getApi();
+
+        Login_button_class loginButtonClass = new Login_button_class(MainActivity.this, api);
+        Button loginButton = findViewById(R.id.login_btn);
+        loginButtonClass.login_button(loginButton, MainActivity.this);
+
+    }
 }

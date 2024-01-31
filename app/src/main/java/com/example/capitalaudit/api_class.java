@@ -12,9 +12,13 @@ import com.example.capitalaudit.api_response.*;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-
 public class api_class {
     private String access_token;
+
+    api_class(String access_token)
+    {
+        this.access_token = access_token;
+    }
     public api_response login_request(String json) throws IOException {
 
         try {
@@ -127,6 +131,12 @@ public class api_class {
                     response.append(line);
                 }
 
+                //NEED TO GO THROUGH THIS AND CHANGE THIS ITS USELESS/NEEDS REWORK FROM C+P
+                //NEED TO GO THROUGH THIS AND CHANGE THIS ITS USELESS/NEEDS REWORK FROM C+P
+                //NEED TO GO THROUGH THIS AND CHANGE THIS ITS USELESS/NEEDS REWORK FROM C+P
+                //NEED TO GO THROUGH THIS AND CHANGE THIS ITS USELESS/NEEDS REWORK FROM C+P
+
+
                 JsonObject jsonResponse = JsonParser.parseString(response.toString()).getAsJsonObject();
                 boolean success = jsonResponse.getAsJsonPrimitive("success").getAsBoolean();
                 String errorMessage = jsonResponse.has("error_message") ?
@@ -158,7 +168,7 @@ public class api_class {
 
 
 
-    public api_response refresh_data() throws IOException
+    public api_response fetchDataFromServer() throws IOException
     {
         try {
             Log.d("test", "Refresh data");
@@ -197,6 +207,11 @@ public class api_class {
                     response.append(line);
                 }
 
+                //NEED TO GO THROUGH THIS AND CHANGE THIS ITS USELESS/NEEDS REWORK FROM C+P
+                //NEED TO GO THROUGH THIS AND CHANGE THIS ITS USELESS/NEEDS REWORK FROM C+P
+                //NEED TO GO THROUGH THIS AND CHANGE THIS ITS USELESS/NEEDS REWORK FROM C+P
+                //NEED TO GO THROUGH THIS AND CHANGE THIS ITS USELESS/NEEDS REWORK FROM C+P
+
                 JsonObject jsonResponse = JsonParser.parseString(response.toString()).getAsJsonObject();
                 boolean success = jsonResponse.getAsJsonPrimitive("success").getAsBoolean();
                 String errorMessage = jsonResponse.has("error_message") ?
@@ -228,3 +243,4 @@ public class api_class {
 
     }
 }
+

@@ -4,21 +4,30 @@ package com.example.capitalaudit;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
+import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomeActivity extends AppCompatActivity {
 
     CapitalAudit capitalAudit;
+    api_class api;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        CapitalAudit capitalAudit = (CapitalAudit) getApplication();
-        button_class buttonClass = capitalAudit.getButtonClass();
-        buttonClass.refreshPayments();
+        setUpAudit();
+        FetchData();
         menuBarSetup();
+        TextView displayTextView = findViewById(R.id.displayTextView);
+        displayTextView.setText(welcomeNameColor());
+
+
     }
 
     private boolean menuBarSetup()
@@ -63,5 +72,27 @@ public class HomeActivity extends AppCompatActivity {
     public void startActivity(Intent intent) {
         super.startActivity(intent);
         overridePendingTransition(0, 0);
+    }
+    private void FetchData()
+    {
+        FetchData fetchData = new FetchData(api,  HomeActivity.this);
+        fetchData.FetchDataFromServer();
+    }
+
+    private void setUpAudit()
+    {
+        capitalAudit = CapitalAudit.getInstance();
+        api = capitalAudit.getApi();
+    }
+
+    private SpannableString welcomeNameColor()
+    {
+        String username = CapitalAudit.getUsername();
+
+        SpannableString spannableString = new SpannableString("Welcome " + username);
+
+        spannableString.setSpan(new ForegroundColorSpan(Color.BLACK), 0, 7, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#FF4BB73A")), 7, spannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return spannableString;
     }
 }

@@ -30,7 +30,7 @@ public class PaymentApiAsyncTask extends AsyncTask<payment_class, Void, api_resp
         try {
             Log.d("Test", "payment_api activated");
 
-
+//Should probably look over this, Needs to take input and then create object and change to json.
             String jsonString = json_class.payement_to_json(params[0]);
             return api.add_payment_api(jsonString);
         } catch (IOException e) {

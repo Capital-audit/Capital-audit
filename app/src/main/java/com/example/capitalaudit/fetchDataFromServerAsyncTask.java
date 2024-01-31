@@ -6,37 +6,34 @@ import android.util.Log;
 
 import java.io.IOException;
 
-public class RefreshPaymentsAsyncTask extends AsyncTask<payment_class, Void, api_response> {
+public class fetchDataFromServerAsyncTask extends AsyncTask<payment_class, Void, api_response> {
     private api_class api;
-    private refreshResult refreshCallBack;
+    private FetchResult fetchResult;
 
-    public RefreshPaymentsAsyncTask(api_class api, refreshResult refreshCallBack) {
+    public fetchDataFromServerAsyncTask(api_class api, FetchResult fetchResult) {
         this.api = api;
-        this.refreshCallBack = refreshCallBack;
+        this.fetchResult = fetchResult;
     }
 
     @Override
     protected api_response doInBackground(payment_class... params) {
         try {
             Log.d("Test", "payment_api activated");
-            api_class api = new api_class();
-
-
-            return api.refresh_data();
+            return api.fetchDataFromServer();
         } catch (IOException e) {
             Log.e("Test", "Exception in payment_api", e);
             return new api_response(false, e.getMessage());
         }
     }
 
-    public interface refreshResult{
-        void refreshresult(api_response response);
+    public interface FetchResult{
+        void FetchDataResult(api_response response);
     }
 
     @Override
     protected void onPostExecute(api_response result) {
         // Handle the result as needed
-        refreshCallBack.refreshresult(result);
+        fetchResult.FetchDataResult(result);
     }
 }
 

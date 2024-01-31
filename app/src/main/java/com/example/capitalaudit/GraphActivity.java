@@ -15,9 +15,6 @@ public class GraphActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        CapitalAudit capitalAudit = (CapitalAudit) getApplication();
-        button_class buttonClass = capitalAudit.getButtonClass();
-        buttonClass.refreshPayments();
         setUpNavBar();
     }
 
