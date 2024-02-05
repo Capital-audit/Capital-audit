@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="background_color">#F2F2F2</color> #Offwhite
+    <color name="white">#F9F9F9</color>
+    <color name="background_color">#E0E0E0</color> #Offwhite
     <color name="primary_color">#FF4BB73A</color> #Green
     <color name="secondary_color">#DCFFDE</color> #Shallow green
     <color name="accent_color">#9BC794</color> #Light green
