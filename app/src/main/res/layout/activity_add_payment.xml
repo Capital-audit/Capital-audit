@@ -5,8 +5,129 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AddPaymentActivity">
-    
-    
+
+    <TextView
+        android:id="@+id/displayTextView"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:text="New transaction "
+        android:gravity="center"
+        android:paddingTop="16dp"
+        android:paddingLeft="16dp"
+        android:paddingBottom="16dp"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        android:layout_marginLeft="16px"
+        android:layout_marginRight="16px"
+        android:layout_marginTop="16px"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/rounded_background"
+        />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/transactionPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Transaction price"
+        android:background="@drawable/rounded_background"
+        android:layout_marginLeft="16px"
+        android:layout_marginRight="16px"
+        android:layout_marginTop="16px"
+        android:layout_marginBottom="16px"
+        app:layout_constraintTop_toBottomOf="@+id/displayTextView">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTransactionPricee"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <Spinner
+        android:id="@+id/category"
+        android:background="@drawable/rounded_background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/transactionPrice"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:layout_marginTop="16px"
+        android:layout_marginBottom="16px"
+        android:layout_marginLeft="16px"
+        android:layout_marginRight="16px"
+
+        />
+
+    <Spinner
+        android:id="@+id/debit_credit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_background"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:layout_marginLeft="16px"
+        android:layout_marginRight="16px"
+        android:layout_marginTop="16px"
+        android:layout_marginBottom="16px"
+        app:layout_constraintTop_toBottomOf="@+id/category" />
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cleared"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:background="@drawable/rounded_background"
+        android:layout_marginLeft="16px"
+        android:layout_marginRight="16px"
+        android:layout_marginTop="16px"
+        android:layout_marginBottom="16px"
+        app:layout_constraintTop_toBottomOf="@+id/debit_credit" />
+
+    <EditText
+        android:id="@+id/editTextDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:background="@drawable/rounded_background"
+        android:layout_marginLeft="16px"
+        android:layout_marginRight="16px"
+        android:layout_marginTop="16px"
+        android:layout_marginBottom="16px"
+        android:hint="Select Date"
+        app:layout_constraintTop_toBottomOf="@+id/checkBox" />
+
+    <Button
+        android:id="@+id/AddPayment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Enter"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:backgroundTint="@color/primary_color"
+        android:layout_marginLeft="16px"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:layout_marginRight="16px"
+        android:layout_marginTop="16px"
+        android:layout_marginBottom="16px"
+        app:layout_constraintTop_toBottomOf="@+id/editTextDate" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
@@ -17,6 +138,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_nav_menu"
         app:itemIconTint="@color/primary_color"
+
         />
 
     <FrameLayout
