@@ -1,7 +1,7 @@
 # Capital audit
 Libaries used:
-  -Android studio
-  -GSON
+  - Android studio
+  - GSON
 
 # Getting Started
 To run this project locally, follow these steps:
