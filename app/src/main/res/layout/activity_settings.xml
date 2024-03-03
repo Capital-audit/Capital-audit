@@ -6,6 +6,72 @@
     android:layout_height="match_parent"
     tools:context=".SettingsActivity">
 
+    <Button
+        android:id="@+id/AccountSettingsButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/primary_color"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:text="Account Settings"
+        android:textColor="@color/black"
+        android:layout_marginRight="16px"
+        android:layout_marginLeft="16px"
+        android:layout_marginTop="16px"
+        android:layout_marginBottom="16px"
+        android:textSize="20sp"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="6dp" />
+
+    <Button
+        android:id="@+id/DataSettings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/primary_color"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:text="Data settings"
+        android:textColor="@color/black"
+        android:layout_marginTop="16px"
+        android:layout_marginBottom="16px"
+        android:layout_marginRight="16px"
+        android:layout_marginLeft="16px"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@+id/AccountSettingsButton" />
+
+    <Button
+        android:id="@+id/SignOutbutton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/primary_color"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:layout_marginRight="16px"
+        android:layout_marginLeft="16px"
+        android:text="Signout"
+        android:textColor="@color/black"
+        android:layout_marginTop="16px"
+        android:layout_marginBottom="16px"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@+id/DataSettings" />
+
+    <Button
+        android:id="@+id/Details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/primary_color"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:layout_marginTop="16px"
+        android:layout_marginBottom="16px"
+        android:text="App Details"
+        android:layout_marginRight="16px"
+        android:layout_marginLeft="16px"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@+id/SignOutbutton" />
+
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="0dp"
@@ -13,9 +79,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+
         app:menu="@menu/bottom_nav_menu"
         app:itemIconTint="@color/primary_color"
         />
+
 
     <FrameLayout
         android:layout_width="0dp"
