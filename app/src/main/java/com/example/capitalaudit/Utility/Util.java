@@ -1,4 +1,4 @@
-package com.example.capitalaudit;
+package com.example.capitalaudit.Utility;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 public class Util {

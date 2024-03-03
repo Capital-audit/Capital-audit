@@ -1,13 +1,12 @@
-package com.example.capitalaudit;
+package com.example.capitalaudit.ActivityFiles;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.capitalaudit.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.util.Set;
 
 public class SettingsActivity extends AppCompatActivity {
 

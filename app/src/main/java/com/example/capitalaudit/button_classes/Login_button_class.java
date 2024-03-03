@@ -1,4 +1,4 @@
-package com.example.capitalaudit;
+package com.example.capitalaudit.button_classes;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,11 +7,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.capitalaudit.API.LoginAsyncTask;
+import com.example.capitalaudit.API.api_class;
+import com.example.capitalaudit.API.api_response;
+import com.example.capitalaudit.ActivityFiles.HomeActivity;
+import com.example.capitalaudit.CapitalAudit;
+import com.example.capitalaudit.R;
+
 public class Login_button_class implements LoginAsyncTask.LoginCallback {
     private Context context;
     private api_class api;
 
-    Login_button_class(Context context, api_class api)
+    public Login_button_class(Context context, api_class api)
     {
         this.context = context;
         this.api = api;

@@ -1,4 +1,4 @@
-package com.example.capitalaudit;
+package com.example.capitalaudit.ActivityFiles;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,11 +14,14 @@ import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.util.Log;
-import android.view.Gravity;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.example.capitalaudit.CapitalAudit;
+import com.example.capitalaudit.API.FetchData;
+import com.example.capitalaudit.R;
+import com.example.capitalaudit.API.api_class;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GridLabelRenderer;

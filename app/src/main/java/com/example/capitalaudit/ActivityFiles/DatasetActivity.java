@@ -1,12 +1,11 @@
-package com.example.capitalaudit;
+package com.example.capitalaudit.ActivityFiles;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.service.autofill.Dataset;
 
+import com.example.capitalaudit.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class DatasetActivity extends AppCompatActivity {

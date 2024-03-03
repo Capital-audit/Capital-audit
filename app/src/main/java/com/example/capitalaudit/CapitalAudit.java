@@ -1,7 +1,9 @@
 package com.example.capitalaudit;
 
 import android.app.Application;
-import android.content.Context;
+
+import com.example.capitalaudit.API.api_class;
+import com.example.capitalaudit.models.PaymentStorage;
 
 public class CapitalAudit extends Application
 {

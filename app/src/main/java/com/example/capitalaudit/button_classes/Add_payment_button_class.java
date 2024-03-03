@@ -1,9 +1,13 @@
-package com.example.capitalaudit;
+package com.example.capitalaudit.button_classes;
 
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+
+import com.example.capitalaudit.API.PaymentApiAsyncTask;
+import com.example.capitalaudit.API.api_class;
+import com.example.capitalaudit.API.api_response;
 
 public class Add_payment_button_class implements PaymentApiAsyncTask.onPaymentAddResult{
 

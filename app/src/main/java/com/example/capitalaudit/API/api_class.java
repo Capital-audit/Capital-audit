@@ -1,4 +1,4 @@
-package com.example.capitalaudit;
+package com.example.capitalaudit.API;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -8,14 +8,14 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Map;
 import java.util.HashMap;
-import com.example.capitalaudit.api_response.*;
+
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 public class api_class {
     private String access_token;
 
-    api_class(String access_token)
+    public api_class(String access_token)
     {
         this.access_token = access_token;
     }

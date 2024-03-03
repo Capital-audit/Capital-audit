@@ -1,4 +1,4 @@
-package com.example.capitalaudit;
+package com.example.capitalaudit.API;
 
 public class api_response {
     private final boolean success;

@@ -18,23 +18,23 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".SettingsActivity"
+            android:name=".ActivityFiles.SettingsActivity"
             android:exported="false" />
         <activity
-            android:name=".DatasetActivity"
+            android:name=".ActivityFiles.DatasetActivity"
             android:exported="false"
             />
         <activity
-            android:name=".GraphActivity"
+            android:name=".ActivityFiles.GraphActivity"
             android:exported="false" />
         <activity
-            android:name=".AddPaymentActivity"
+            android:name=".ActivityFiles.AddPaymentActivity"
             android:exported="false" />
         <activity
-            android:name=".HomeActivity"
+            android:name=".ActivityFiles.HomeActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ActivityFiles.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

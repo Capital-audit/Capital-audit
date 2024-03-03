@@ -1,17 +1,14 @@
-package com.example.capitalaudit;
+package com.example.capitalaudit.ActivityFiles;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
-import com.example.capitalaudit.json_class.*;
-import android.util.Log;
 
-
-import java.io.IOException;
+import com.example.capitalaudit.CapitalAudit;
+import com.example.capitalaudit.button_classes.Login_button_class;
+import com.example.capitalaudit.R;
+import com.example.capitalaudit.API.api_class;
 
 public class MainActivity extends AppCompatActivity {
 

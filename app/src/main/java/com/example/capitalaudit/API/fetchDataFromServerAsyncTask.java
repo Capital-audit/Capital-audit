@@ -1,8 +1,10 @@
-package com.example.capitalaudit;
+package com.example.capitalaudit.API;
 
 
 import android.os.AsyncTask;
 import android.util.Log;
+
+import com.example.capitalaudit.models.payment_class;
 
 import java.io.IOException;
 

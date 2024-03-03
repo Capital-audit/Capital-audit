@@ -1,16 +1,13 @@
-package com.example.capitalaudit;
+package com.example.capitalaudit.API;
 
 
-import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-import com.example.capitalaudit.Util;
-import com.example.capitalaudit.api_class.*;
-import com.example.capitalaudit.api_response.*;
-import com.example.capitalaudit.json_class.*;
+
+import com.example.capitalaudit.Utility.json_class;
+import com.example.capitalaudit.models.payment_class;
 
 import java.io.IOException;
-import java.lang.ref.WeakReference;
 
 public class PaymentApiAsyncTask extends AsyncTask<payment_class, Void, api_response> {
     private api_class api;

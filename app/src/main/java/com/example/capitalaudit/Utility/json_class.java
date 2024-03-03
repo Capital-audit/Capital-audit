@@ -1,8 +1,7 @@
-package com.example.capitalaudit;
+package com.example.capitalaudit.Utility;
 import static java.lang.String.valueOf;
 
-import android.util.Log;
-
+import com.example.capitalaudit.models.payment_class;
 import com.google.gson.Gson;
 
 import java.util.Vector;

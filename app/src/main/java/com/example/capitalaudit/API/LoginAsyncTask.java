@@ -1,8 +1,11 @@
-package com.example.capitalaudit;
+package com.example.capitalaudit.API;
 
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+
+import com.example.capitalaudit.Utility.Util;
+import com.example.capitalaudit.Utility.json_class;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;

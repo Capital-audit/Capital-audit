@@ -1,4 +1,6 @@
-package com.example.capitalaudit;
+package com.example.capitalaudit.models;
+import com.example.capitalaudit.models.payment_class;
+
 import java.util.Vector;
 
 public class PaymentStorage {
