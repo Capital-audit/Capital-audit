@@ -4,6 +4,7 @@ import android.util.Log;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Map;
@@ -25,7 +26,7 @@ public class api_class {
             Log.d("test", "json" + json);
             Map<String, String> headers = new HashMap<>();
             headers.put("Content-Type", "application/json");
-            String url = "http://10.0.2.2:3834/login";
+            String url = "http:///192.168.56.1:8080/login";
 
             URL apiUrl = new URL(url);
 
@@ -98,7 +99,7 @@ public class api_class {
             Map<String, String> headers = new HashMap<>();
             headers.put("Content-Type", "application/json");
             headers.put("access_token", this.access_token);
-            String url = "http://10.0.2.2:3834/add_payment";
+            String url = "http://192.168.56.1:8080/postPaymentData";
 
             URL apiUrl = new URL(url);
 
@@ -130,12 +131,6 @@ public class api_class {
                 while ((line = reader.readLine()) != null) {
                     response.append(line);
                 }
-
-                //NEED TO GO THROUGH THIS AND CHANGE THIS ITS USELESS/NEEDS REWORK FROM C+P
-                //NEED TO GO THROUGH THIS AND CHANGE THIS ITS USELESS/NEEDS REWORK FROM C+P
-                //NEED TO GO THROUGH THIS AND CHANGE THIS ITS USELESS/NEEDS REWORK FROM C+P
-                //NEED TO GO THROUGH THIS AND CHANGE THIS ITS USELESS/NEEDS REWORK FROM C+P
-
 
                 JsonObject jsonResponse = JsonParser.parseString(response.toString()).getAsJsonObject();
                 boolean success = jsonResponse.getAsJsonPrimitive("success").getAsBoolean();
@@ -171,76 +166,46 @@ public class api_class {
     public api_response fetchDataFromServer() throws IOException
     {
         try {
-            Log.d("test", "Refresh data");
-            Map<String, String> headers = new HashMap<>();
-            headers.put("Content-Type", "application/json");
-            headers.put("access_token", this.access_token);
-            String url = "http://10.0.2.2:3834/refresh_payments";
+            Log.d("data request", "Refresh data");
+
+            String url = "http:///192.168.56.1:8080//getPaymentData";
 
             URL apiUrl = new URL(url);
 
             HttpURLConnection connection = (HttpURLConnection) apiUrl.openConnection();
-            if (!headers.isEmpty()) {
-                for (Map.Entry<String, String> entry : headers.entrySet()) {
-                    connection.setRequestProperty(entry.getKey(), entry.getValue());
-                }
-            }
 
-            Log.d("Test", "Request Headers: " + connection.getRequestProperties());
+            connection.setRequestMethod("GET");
 
-            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Content-Type", "application/json");
+            connection.setRequestProperty("access_token", this.access_token);
 
-            connection.setDoOutput(true);
-
+            Log.d("data request", "Request Headers: " + connection.getRequestProperties());
             int responseCode = connection.getResponseCode();
-            Log.d("Test", "Response error: " + responseCode);
+            Log.d("data request", "Response code: " + responseCode);
 
 
             if (responseCode >= 200 && responseCode < 300) {
 
 
-                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                String line;
-                StringBuilder response = new StringBuilder();
-
-                while ((line = reader.readLine()) != null) {
-                    response.append(line);
-                }
-
-                //NEED TO GO THROUGH THIS AND CHANGE THIS ITS USELESS/NEEDS REWORK FROM C+P
-                //NEED TO GO THROUGH THIS AND CHANGE THIS ITS USELESS/NEEDS REWORK FROM C+P
-                //NEED TO GO THROUGH THIS AND CHANGE THIS ITS USELESS/NEEDS REWORK FROM C+P
-                //NEED TO GO THROUGH THIS AND CHANGE THIS ITS USELESS/NEEDS REWORK FROM C+P
-
-                JsonObject jsonResponse = JsonParser.parseString(response.toString()).getAsJsonObject();
-                boolean success = jsonResponse.getAsJsonPrimitive("success").getAsBoolean();
-                String errorMessage = jsonResponse.has("error_message") ?
-                        jsonResponse.getAsJsonPrimitive("error_message").getAsString() : "";
-
-                //Need to change so that it checks for data. Will return api_response, with a apiResponse as data.
-                if (jsonResponse.has("access_token")) {
-                    String accessToken = jsonResponse.getAsJsonPrimitive("access_token").getAsString();
-
-                } else {
-                    Log.d("Test", "Access Token not found in JSON response");
-                }
-
-                connection.disconnect();
-
-                if (success) {
+                try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+                    StringBuilder response = new StringBuilder();
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        response.append(line);
+                    }
+                    // Return success response
+                    Log.d("data request", "Response error" + response.toString());
                     return new api_response(true, response.toString());
-                } else {
-                    throw new IOException(errorMessage);
                 }
+            } else {
+                // Handle unsuccessful response
+                return new api_response(false, "HTTP error: " + responseCode);
             }
         } catch (IOException e) {
             e.printStackTrace();
             Log.d("Test", "Exception caused in api_class" + e);
             return new api_response(false, e.getMessage());
         }
-        return new api_response(false, null);
-
-
     }
 }
 

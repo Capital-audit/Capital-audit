@@ -20,7 +20,7 @@ public class fetchDataFromServerAsyncTask extends AsyncTask<payment_class, Void,
     @Override
     protected api_response doInBackground(payment_class... params) {
         try {
-            Log.d("Test", "payment_api activated");
+            Log.d("Test", "get data api function executed");
             return api.fetchDataFromServer();
         } catch (IOException e) {
             Log.e("Test", "Exception in payment_api", e);

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "442572189565",
+    "project_id": "capital-audit-backend",
+    "storage_bucket": "capital-audit-backend.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:442572189565:android:db6e685029cb8892b56614",
+        "android_client_info": {
+          "package_name": "com.example.capitalaudit"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2lidhaS0Smzh0hQtoJRCSZLf5ggw-jZI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

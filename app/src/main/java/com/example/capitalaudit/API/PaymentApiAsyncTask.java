@@ -13,10 +13,11 @@ public class PaymentApiAsyncTask extends AsyncTask<payment_class, Void, api_resp
     private api_class api;
     private onPaymentAddResult paymentCallBack;
 
-
-    public PaymentApiAsyncTask(api_class api, onPaymentAddResult paymentCallBack) {
+    private String json;
+    public PaymentApiAsyncTask(api_class api, onPaymentAddResult paymentCallBack, String jsonString) {
         this.api = api;
         this.paymentCallBack = paymentCallBack;
+        this.json = jsonString;
     }
 
     @Override
@@ -26,10 +27,7 @@ public class PaymentApiAsyncTask extends AsyncTask<payment_class, Void, api_resp
 
         try {
             Log.d("Test", "payment_api activated");
-
-//Should probably look over this, Needs to take input and then create object and change to json.
-            String jsonString = json_class.payement_to_json(params[0]);
-            return api.add_payment_api(jsonString);
+            return api.add_payment_api(json);
         } catch (IOException e) {
             Log.e("Test", "Exception in payment_api", e);
             return new api_response(false, e.getMessage());

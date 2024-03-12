@@ -4,9 +4,18 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
 
+import com.example.capitalaudit.API.api_class;
+import com.example.capitalaudit.CapitalAudit;
 import com.example.capitalaudit.R;
+import com.example.capitalaudit.button_classes.Add_payment_button_class;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.lang.reflect.Array;
+import java.util.List;
 
 public class AddPaymentActivity extends AppCompatActivity {
 
@@ -14,17 +23,14 @@ public class AddPaymentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setUpNavBar();
-
+        CategorySpinner();
+        debitCreditSpinner();
+        enterButton();
 
     }
-
-
-
-
     private boolean setUpNavBar()
     {
         setContentView(R.layout.activity_add_payment);
-        setContentView(R.layout.activity_dataset);
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.New);
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
@@ -64,4 +70,35 @@ public class AddPaymentActivity extends AppCompatActivity {
         super.startActivity(intent);
         overridePendingTransition(0, 0);
     }
+
+    private void CategorySpinner()
+    {
+        String[] options = {"Bills", "Food", "Clothing", "Rent", "Miscellaneous"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, options);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        Spinner spinner = findViewById(R.id.category);
+        spinner.setAdapter(adapter);
+
+    }
+
+    private void debitCreditSpinner()
+    {
+        String[] options = {"Debit card", "Credit card"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, options);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        Spinner spinner = findViewById(R.id.debit_credit);
+        spinner.setAdapter(adapter);
+    }
+
+
+    private void enterButton()
+    {
+        CapitalAudit capitalAudit = CapitalAudit.getInstance();
+        api_class api = capitalAudit.getApi();
+        Add_payment_button_class paymentButtonClass = new Add_payment_button_class(AddPaymentActivity.this, api);
+        Button addButton = findViewById(R.id.AddPayment);
+        paymentButtonClass.addTransactionButton(addButton);
+
+    }
+
 }

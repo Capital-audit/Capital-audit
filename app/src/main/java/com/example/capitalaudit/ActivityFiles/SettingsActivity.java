@@ -21,7 +21,6 @@ public class SettingsActivity extends AppCompatActivity {
     private boolean setUpNavBar()
     {
         setContentView(R.layout.activity_settings);
-        setContentView(R.layout.activity_dataset);
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.Settings);
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {

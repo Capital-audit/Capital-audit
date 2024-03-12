@@ -21,7 +21,6 @@ public class GraphActivity extends AppCompatActivity {
     private boolean setUpNavBar()
     {
         setContentView(R.layout.activity_graph);
-        setContentView(R.layout.activity_dataset);
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.Graph);
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {

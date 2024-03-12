@@ -14,7 +14,7 @@ public class FetchData implements fetchDataFromServerAsyncTask.FetchResult {
     public void FetchDataFromServer()
     {
         Log.d("Test", "Fetched data!");
-        new fetchDataFromServerAsyncTask(api, FetchData.this).execute();
+        new fetchDataFromServerAsyncTask(api, FetchData.this);
     }
 
     @Override
