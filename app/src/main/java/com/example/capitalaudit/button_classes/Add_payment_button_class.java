@@ -9,17 +9,24 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.example.capitalaudit.API.PaymentApiAsyncTask;
+import com.example.capitalaudit.Async.PaymentApiAsyncTask;
 import com.example.capitalaudit.API.api_class;
 import com.example.capitalaudit.API.api_response;
 import com.example.capitalaudit.R;
 import com.example.capitalaudit.Utility.json_class;
-import com.example.capitalaudit.models.payment_class;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Objects;
 
-public class Add_payment_button_class implements PaymentApiAsyncTask.onPaymentAddResult{
+
+/**
+ * Class to handle the add payment button
+ * @params context The context to use for the request
+ * @params api The API class to use for the request
+ *
+ */
+public class Add_payment_button_class implements PaymentApiAsyncTask.onPaymentAddResult
+{
 
     private Context context;
     private api_class api;
@@ -30,16 +37,23 @@ public class Add_payment_button_class implements PaymentApiAsyncTask.onPaymentAd
     }
 
 
+    /**
+     * Method to add a transaction button
+     * This function will add a listener to the button that will get the data inputted by the user and send it to the API
+     * @param button
+     */
     public void addTransactionButton(Button button)
     {
-        //Adding a new transaction needs updating. Need to get user input create new object.
-        //transform to json and then send to db. Right now what works is:
-        //Api_Class, json_Class, Async and this needs adjusting to get userinput and then convert
-        //to Json.
+        if(context == null)
+        {
+            Log.d("TransactionButton", "Error context is null");
+        }
 
-        button.setOnClickListener(new View.OnClickListener() {
+        button.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 //Getting all data inputted from user: Price, Category, Debit/credit, isCleared, and date.
                 TextInputEditText editTextTransactionPrice = ((Activity) context).findViewById(R.id.editTransactionPricee);
                 String transactionPrice = Objects.requireNonNull(editTextTransactionPrice.getText()).toString();
@@ -57,30 +71,46 @@ public class Add_payment_button_class implements PaymentApiAsyncTask.onPaymentAd
                 EditText editTextDate = ((Activity) context).findViewById(R.id.editTextDate);
                 String enteredDate = editTextDate.getText().toString();
                 String json = json_class.payment_to_json(transactionPriceInt, selectedCategory, isCleared,selectedDebitCredit, enteredDate);
-
+                Log.d("paymenttoJson", json);
                 new PaymentApiAsyncTask(api, Add_payment_button_class.this, json);
                 }
         });
     }
 
+    /**
+     * Method to handle the result of the add payment request
+     * @param result
+     */
     @Override
-    public void onPaymentAddResult(api_response result) {
-        if (result.isSuccess()) {
+    public void onPaymentAddResult(api_response result)
+    {
+        if (result.isSuccess())
+        {
 
             Log.d("Test", "Success.. Added task");
 
-        } else {
+        }
+        else
+        {
             // Error response
             Log.e("Test", "Failed to add task " + result.getResponse());
         }
     }
 
+    /**
+     * Method to convert the transaction price to an integer
+     * @params transactionPriceString
+     * @return
+     */
     private int passTransactionToInt(String transactionPriceString)
     {
         int transactionPrice;
-        try {
+        try
+        {
             return transactionPrice = Integer.parseInt(transactionPriceString);
-        } catch (NumberFormatException e) {
+        }
+        catch (NumberFormatException e)
+        {
             // Handle the case where the input is not a valid integer
             e.printStackTrace(); // Print the error for debugging purposes
             // Optionally, show a message to the user indicating that the input is invalid

@@ -1,32 +1,40 @@
 package com.example.capitalaudit.models;
 
 
-
+/**
+ * This class is used to store the payment data.
+ * It contains the ID, price, category, cleared, debit_credit, date, and user_id of the payment.
+ * It also contains the getter functions for each of the fields.
+ * It also contains the toString function to print the payment data.
+ * @params id The ID of the payment.
+ * @params price The price of the payment.
+ * @params category The category of the payment.
+ * @params cleared The cleared status of the payment.
+ * @params debit_credit The debit/credit status of the payment.
+ * @params date The date of the payment.
+ *
+ */
 public class payment_class {
 
-
-
-    int id;
+    int ID;
     double price;
     String category;
     boolean cleared;
-    String debitCredit;
+    boolean debit_credit;
     String date;
-    int user_id;
-    public payment_class(int id, double price, String category, boolean cleared, String debitCredit, String date, int user_id)
+    public payment_class(int id, double price, String category, boolean cleared, boolean debit_credit, String date)
     {
-        this.id = id;
+        this.ID = id;
         this.price = price;
         this.category = category;
         this.cleared = cleared;
-        this.debitCredit = debitCredit;
+        this.debit_credit = debit_credit;
         this.date = date;
-        this.user_id = user_id;
     }
 
     public int get_payment_id()
     {
-        return id;
+        return ID;
     }
 
     public String getCategory()
@@ -39,9 +47,9 @@ public class payment_class {
         return cleared;
     }
 
-    public String getDebitCredit()
+    public boolean getDebitCredit()
     {
-        return debitCredit;
+        return debit_credit;
     }
 
     public String getDate()
@@ -49,11 +57,13 @@ public class payment_class {
         return date;
     }
 
-    public int getUser_id()
-    {
-        return user_id;
-    }
-
     public double getPrice() { return this.price;}
+
+    @Override
+    public String toString()
+    {
+        return "PaymentData[ID=" + ID + ", Price=" + price + ", Category=" + category + ", Debit/Credit=" + debit_credit + ", Cleared=" + cleared + ", Date=" + date + "]";
+
+    }
 
 }

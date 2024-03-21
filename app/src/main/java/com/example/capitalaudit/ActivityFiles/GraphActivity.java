@@ -9,15 +9,29 @@ import android.os.Bundle;
 import com.example.capitalaudit.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class GraphActivity extends AppCompatActivity {
+/*
+    * GraphActivity class is responsible for displaying the graph of the data.
+    * It extends AppCompatActivity class.
+ */
+public class GraphActivity extends AppCompatActivity
+{
+
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
 
         setUpNavBar();
     }
 
+
+
+    /*
+        * setUpNavBar method is responsible for setting up the bottom navigation bar.
+        * It returns a boolean value.
+     */
     private boolean setUpNavBar()
     {
         setContentView(R.layout.activity_graph);
@@ -26,23 +40,32 @@ public class GraphActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             int itemId = item.getItemId();
 
-            if (itemId == R.id.Home) {
+            if (itemId == R.id.Home)
+            {
                 // Handle Home click
                 startActivity(new Intent(GraphActivity.this, HomeActivity.class));
                 finish();
                 return true;
-            } else if (itemId == R.id.Graph) {
+            }
+            else if (itemId == R.id.Graph)
+            {
                 startActivity(new Intent(GraphActivity.this, GraphActivity.class));
                 finish(); // Finish the current activity to prevent going back to it
                 return true;
-            } else if (itemId == R.id.New) {
+            }
+            else if (itemId == R.id.New)
+            {
                 // Handle New click
                 startActivity(new Intent(GraphActivity.this, AddPaymentActivity.class));
                 finish();
                 return true;
-            } else if (itemId == R.id.View) {
+            }
+            else if (itemId == R.id.View)
+            {
                 return true;
-            } else if (itemId == R.id.Settings) {
+            }
+            else if (itemId == R.id.Settings)
+            {
                 // Handle Settings click
                 startActivity(new Intent(GraphActivity.this, SettingsActivity.class));
                 finish();
@@ -56,8 +79,11 @@ public class GraphActivity extends AppCompatActivity {
         return false;
     }
 
+
+
     @Override
-    public void startActivity(Intent intent) {
+    public void startActivity(Intent intent)
+    {
         super.startActivity(intent);
         overridePendingTransition(0, 0);
     }

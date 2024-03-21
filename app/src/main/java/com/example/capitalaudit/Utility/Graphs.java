@@ -1,6 +1,10 @@
 package com.example.capitalaudit.Utility;
 
-public class Graphs {
+/**
+ * This class is used to create graphs.
+ */
+public class Graphs
+{
 
     public Graphs()
     {

@@ -8,7 +8,23 @@ import android.os.Bundle;
 import com.example.capitalaudit.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+/*
+    * This class is the activity for the dataset page.
+    * It is used to display the dataset page.
+    * It extends AppCompatActivity class.
+    * It overrides the onCreate method.
+    * It has a method setUpMenuBar which is used to set up the bottom navigation bar.
+    * It has a method startActivity which is used to start the activity.
+    * It has a method onCreate which is used to create the activity.
+    * It has a method setUpMenuBar which is used to set up the bottom navigation bar.
+    * It has a BottomNavigationView object.
+    * It has a method setUpMenuBar which is used to set up the bottom navigation bar.
+    *
+ */
 public class DatasetActivity extends AppCompatActivity {
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,13 +34,19 @@ public class DatasetActivity extends AppCompatActivity {
     }
 
 
-        @Override
-        public void startActivity (Intent intent){
-            super.startActivity(intent);
-            overridePendingTransition(0, 0);
-        }
+
+    @Override
+    public void startActivity (Intent intent){
+        super.startActivity(intent);
+        overridePendingTransition(0, 0);
+    }
 
 
+
+        /*
+        * This method is used to set up the bottom navigation bar.
+        *
+         */
         private boolean setUpMenuBar() {
             setContentView(R.layout.activity_dataset);
             BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);

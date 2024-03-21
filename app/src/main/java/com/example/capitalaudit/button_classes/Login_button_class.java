@@ -7,14 +7,26 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.capitalaudit.API.LoginAsyncTask;
+import com.example.capitalaudit.Async.LoginAsyncTask;
 import com.example.capitalaudit.API.api_class;
 import com.example.capitalaudit.API.api_response;
 import com.example.capitalaudit.ActivityFiles.HomeActivity;
 import com.example.capitalaudit.CapitalAudit;
 import com.example.capitalaudit.R;
 
-public class Login_button_class implements LoginAsyncTask.LoginCallback {
+/**
+ * This class is used to handle the login button click event.
+ * It will call the AsyncTask to perform login in the background.
+ * It will also handle the result of the login.
+ * If the login is successful, it will start the HomeActivity.
+ * If the login is unsuccessful, it will log the error.
+ * @params context The context of the activity that the login button is in.
+ *                This is used to start the HomeActivity.
+ * @params api The api_class object that is used to make the API calls.
+ *
+ */
+public class Login_button_class implements LoginAsyncTask.LoginCallback
+{
     private Context context;
     private api_class api;
 
@@ -25,7 +37,13 @@ public class Login_button_class implements LoginAsyncTask.LoginCallback {
     }
 
 
-    public void login_button(Button button, Context login_context) {
+    /**
+     * This function is used to handle the login button click event.
+     * @param button
+     * @param login_context
+     */
+    public void login_button(Button button, Context login_context)
+    {
 
         if(login_context == null)
         {
@@ -33,9 +51,11 @@ public class Login_button_class implements LoginAsyncTask.LoginCallback {
             return;
         }
 
-        button.setOnClickListener(new View.OnClickListener() {
+        button.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 String username = ((EditText) v.getRootView().findViewById(R.id.username_input)).getText().toString();
                 CapitalAudit.setUsername(username);
                 String password = ((EditText) v.getRootView().findViewById(R.id.password_input)).getText().toString();
@@ -46,9 +66,17 @@ public class Login_button_class implements LoginAsyncTask.LoginCallback {
         });
     }
 
+    /**
+     * This function is called when the AsyncTask is finished.
+     * It will start the HomeActivity if the login is successful.
+     * It is a callback function for the AsyncTask.
+     * @param result
+     */
     @Override
-    public void onLoginResult(api_response result) {
-        if (result.isSuccess()) {
+    public void onLoginResult(api_response result)
+    {
+        if (result.isSuccess())
+        {
             Log.d("Test", "Success logged in");
             if (context == null)
             {
@@ -56,7 +84,9 @@ public class Login_button_class implements LoginAsyncTask.LoginCallback {
             }
             Intent intent = new Intent(context, HomeActivity.class);
             context.startActivity(intent);
-        } else {
+        }
+        else
+        {
             // Error response
             Log.e("Test", "Failed logged in: " + result.getResponse());
         }

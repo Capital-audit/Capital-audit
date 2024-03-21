@@ -17,17 +17,37 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.lang.reflect.Array;
 import java.util.List;
 
-public class AddPaymentActivity extends AppCompatActivity {
+/**
+AddPaymentActivity class is an activity, its used to add a new transaction to the database.
+It has the following functions:
+1. setUpNavBar() - Sets up the bottom navigation bar
+2. CategorySpinner() - Creates a drop-down menu for the category of the transaction
+3. debitCreditSpinner() - Creates a drop-down menu for the type of card used in the transaction
+4. enterButton() - Adds the transaction to the database when the AddPayment button is clicked
+ */
 
+public class AddPaymentActivity extends AppCompatActivity
+{
+
+
+    /**
+    onCreate() - This method is called when the activity is first created.
+     */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setUpNavBar();
         CategorySpinner();
         debitCreditSpinner();
         enterButton();
-
     }
+
+
+
+    /**
+    setUpNavBar() - Sets up the bottom navigation bar
+     */
     private boolean setUpNavBar()
     {
         setContentView(R.layout.activity_add_payment);
@@ -36,23 +56,28 @@ public class AddPaymentActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             int itemId = item.getItemId();
 
-            if (itemId == R.id.Home) {
+            if (itemId == R.id.Home)
+            {
                 // Handle Home click
                 startActivity(new Intent(AddPaymentActivity.this, HomeActivity.class));
                 finish();
                 return true;
-            } else if (itemId == R.id.Graph) {
+            } else if (itemId == R.id.Graph)
+            {
                 startActivity(new Intent(AddPaymentActivity.this, GraphActivity.class));
                 finish(); // Finish the current activity to prevent going back to it
                 return true;
-            } else if (itemId == R.id.New) {
+            } else if (itemId == R.id.New)
+            {
                 // Handle New click
                 startActivity(new Intent(AddPaymentActivity.this, AddPaymentActivity.class));
                 finish();
                 return true;
-            } else if (itemId == R.id.View) {
-                return true;
-            } else if (itemId == R.id.Settings) {
+            } else if (itemId == R.id.View)
+            {
+                startActivity(new Intent(AddPaymentActivity.this, DatasetActivity.class));
+            } else if (itemId == R.id.Settings)
+            {
                 // Handle Settings click
                 startActivity(new Intent(AddPaymentActivity.this, SettingsActivity.class));
                 finish();
@@ -65,12 +90,25 @@ public class AddPaymentActivity extends AppCompatActivity {
         overridePendingTransition(0, 0);
         return false;
     }
+
+
+
+    /**
+    startActivity() - Overrides the startActivity method to remove the transition animation
+     * @param intent - The intent to start the activity
+     */
     @Override
-    public void startActivity(Intent intent) {
+    public void startActivity(Intent intent)
+    {
         super.startActivity(intent);
         overridePendingTransition(0, 0);
     }
 
+
+
+    /**
+    CategorySpinner() - Creates a drop-down menu for the category of the transaction
+     */
     private void CategorySpinner()
     {
         String[] options = {"Bills", "Food", "Clothing", "Rent", "Miscellaneous"};
@@ -78,9 +116,13 @@ public class AddPaymentActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         Spinner spinner = findViewById(R.id.category);
         spinner.setAdapter(adapter);
-
     }
 
+
+
+    /**
+    debitCreditSpinner() - Creates a drop-down menu for the type of card used in the transaction
+     */
     private void debitCreditSpinner()
     {
         String[] options = {"Debit card", "Credit card"};
@@ -91,6 +133,12 @@ public class AddPaymentActivity extends AppCompatActivity {
     }
 
 
+
+    /**
+    enterButton() - Adds the transaction to the database when the AddPayment button is clicked.
+    Will call the addTransactionButton method from the Add_payment_button_class.
+    will pass the AddPaymentActivity and the api_class object as parameters.
+     */
     private void enterButton()
     {
         CapitalAudit capitalAudit = CapitalAudit.getInstance();

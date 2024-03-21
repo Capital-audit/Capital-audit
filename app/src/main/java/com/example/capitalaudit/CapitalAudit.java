@@ -5,6 +5,11 @@ import android.app.Application;
 import com.example.capitalaudit.API.api_class;
 import com.example.capitalaudit.models.PaymentStorage;
 
+/**
+ * This class is used to store the application data.
+ * It contains the api and storage objects.
+ * It also contains the getter functions for the api and storage objects.
+ */
 public class CapitalAudit extends Application
 {
     private static CapitalAudit capitalAudit;

@@ -8,14 +8,26 @@ import android.os.Bundle;
 import com.example.capitalaudit.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class SettingsActivity extends AppCompatActivity {
+import java.util.Set;
+
+/**
+ * SettingsActivity class is the activity that is launched when the Settings option is clicked in the bottom navigation bar.
+ * It extends AppCompatActivity class.
+ * @return Nothing.
+ */
+public class SettingsActivity extends AppCompatActivity
+{
+
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
 
         setUpNavBar();
     }
+
 
 
     private boolean setUpNavBar()
@@ -26,28 +38,40 @@ public class SettingsActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             int itemId = item.getItemId();
 
-            if (itemId == R.id.Home) {
+            if (itemId == R.id.Home)
+            {
                 // Handle Home click
                 startActivity(new Intent(SettingsActivity.this, HomeActivity.class));
                 finish();
                 return true;
-            } else if (itemId == R.id.Graph) {
+            }
+            else if (itemId == R.id.Graph)
+            {
                 startActivity(new Intent(SettingsActivity.this, GraphActivity.class));
                 finish(); // Finish the current activity to prevent going back to it
                 return true;
-            } else if (itemId == R.id.New) {
+            }
+            else if (itemId == R.id.New)
+            {
                 // Handle New click
                 startActivity(new Intent(SettingsActivity.this, AddPaymentActivity.class));
                 finish();
                 return true;
-            } else if (itemId == R.id.View) {
+            }
+            else if (itemId == R.id.View)
+            {
+                startActivity(new Intent(SettingsActivity.this, DatasetActivity.class));
+                finish();
                 return true;
-            } else if (itemId == R.id.Settings) {
+            }
+            else if (itemId == R.id.Settings)
+            {
                 // Handle Settings click
                 startActivity(new Intent(SettingsActivity.this, SettingsActivity.class));
                 finish();
                 return true;
-            } else
+            }
+            else
             {
                 return false;
             }
@@ -56,8 +80,11 @@ public class SettingsActivity extends AppCompatActivity {
         return false;
     }
 
+
+
     @Override
     public void startActivity(Intent intent) {
+
         super.startActivity(intent);
         overridePendingTransition(0, 0);
     }
