@@ -238,7 +238,7 @@ public class api_class {
             else
             {
                 Log.d("AddDataAPI", String.valueOf(responseCode));
-                return null;
+                return new api_response(false, responseMessage);
             }
         }
         catch (IOException e)

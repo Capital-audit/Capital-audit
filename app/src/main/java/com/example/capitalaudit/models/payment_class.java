@@ -62,7 +62,7 @@ public class payment_class {
     @Override
     public String toString()
     {
-        return "PaymentData[ID=" + ID + ", Price=" + price + ", Category=" + category + ", Debit/Credit=" + debit_credit + ", Cleared=" + cleared + ", Date=" + date + "]";
+        return date + " " + category + " " + "$" + price + " " +  " " + ID;
 
     }
 

@@ -92,7 +92,7 @@ public class HomeActivity extends AppCompatActivity implements DataFetchListener
     public void onDataFetched()
     {
         setHomeGraph();
-        //populateTable();
+        populateLatestTransactions();
         setMonthlySpend();
     }
 
@@ -228,7 +228,7 @@ public class HomeActivity extends AppCompatActivity implements DataFetchListener
             gridLabelRenderer.setLabelsSpace(15);
             gridLabelRenderer.setGridStyle(GridLabelRenderer.GridStyle.BOTH);
             List<DataPoint> dataPoints = new ArrayList<>();
-            List<payment_class> thisMonthsPayments = Util.filterDataByMonths(4);
+            List<payment_class> thisMonthsPayments = Util.filterDataByMonths(1);
 
             for (payment_class payment : thisMonthsPayments)
             {
@@ -277,8 +277,15 @@ public class HomeActivity extends AppCompatActivity implements DataFetchListener
     private void setMonthlySpend()
     {
         TextView montlySpendTextView = findViewById(R.id.monthly_spend);
-        String monthly = "192.20";
-        SpannableString spannableString = new SpannableString("Spent this month $" + monthly);
+        double monthlySpend = 0;
+        List<payment_class> monthstorage = Util.filterDataByMonths(1);
+        for (payment_class payment : monthstorage)
+        {
+            double spend = payment.getPrice();
+            monthlySpend += spend;
+        }
+
+        SpannableString spannableString = new SpannableString("Spent this month $" + monthlySpend);
 
         int startBoldIndex = 16;
         int endBoldIndex = spannableString.length();
@@ -297,151 +304,30 @@ public class HomeActivity extends AppCompatActivity implements DataFetchListener
      * Description: This method is responsible for populating the table on the home screen.
      * It gets the data from the storage and populates the table with the most recent 6 data points.
      */
-    public int populateTable()
+    public void populateLatestTransactions()
     {
-        PaymentStorage ps = capitalAudit.getStorage();
-        Context context = HomeActivity.this;
-        Vector<payment_class> data = ps.getPayments();
-        TableLayout layout = ((Activity) context).findViewById(R.id.tableLayout);
-        layout.removeAllViews();
+        List<payment_class> data = Util.filterDataByMonths(1);
+        int size = data.size();
+        int numTransactionsToDisplay = Math.min(size, 4);
 
-
-        if (data == null || data.isEmpty())
-        {
-            // If there's no data, populate the table with empty rows
-            for (int i = 0; i < 6; i++)
-            {
-                TableRow tableRow = new TableRow(this);
-                TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(
-                        TableRow.LayoutParams.MATCH_PARENT,
-                        TableRow.LayoutParams.WRAP_CONTENT
-                );
-                tableRow.setLayoutParams(layoutParams);
-
-                // Add empty cells for date, amount, and category
-                for (int j = 0; j < 3; j++)
-                {
-                    TextView textView = new TextView(this);
-                    textView.setText("");
-                    textView.setTextSize(20);
-                    textView.setPadding(16, 8, 16, 8);
-                    textView.setBackgroundResource(R.drawable.cell_background);
-                    tableRow.addView(textView);
-                }
-                layout.addView(tableRow);
-
-            }
-            return 1;
-        } else
-        {
-            // If there's data, populate the table with the most recent 6 data points
-            int startIndex = Math.max(data.size() - 6, 0);
-            for (int i = startIndex; i < data.size(); i++)
-            {
-                payment_class payment = data.get(i);
-                TableRow tableRow = new TableRow(this);
-                TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(
-                        TableRow.LayoutParams.MATCH_PARENT,
-                        TableRow.LayoutParams.WRAP_CONTENT
-                );
-                tableRow.setLayoutParams(layoutParams);
-
-                // Add cells for date, amount, and category using data from payment_class object
-                setTableDate(tableRow, payment);
-                setTablePrice(tableRow, payment);
-                setTableCategory(tableRow, payment);
-                setTableIsCleared(tableRow, payment);
-                layout.addView(tableRow);
-
-            }
-            return 2;
+        for (int i = 0; i < numTransactionsToDisplay; i++) {
+            TextView currentTextView = getTextViewForIndex(i);
+            payment_class payment = data.get(size - numTransactionsToDisplay + i);
+            currentTextView.setText(payment.toString());
         }
     }
 
-
-
-    /**
-     * setTableDate()
-     * @param tableRow
-     * @param payment
-     * @return void
-     * Description: This method is responsible for setting the date in the table.
-     */
-    public void setTableDate(TableRow tableRow, payment_class payment)
-    {
-        TextView dateTextView = new TextView(this);
-        dateTextView.setText(payment.getDate()); // Change this to access the date field
-        dateTextView.setTextSize(20);
-        dateTextView.setPadding(16, 8, 16, 8);
-        dateTextView.setBackgroundResource(R.drawable.cell_background);
-        tableRow.addView(dateTextView);
-    }
-
-
-
-    /**
-     * setTablePrice()
-     * @param tableRow
-     * @param payment
-     * @return void
-     * Description: This method is responsible for setting the price in the table.
-     */
-
-    public void setTablePrice(TableRow tableRow, payment_class payment)
-    {
-        TextView amountTextView = new TextView(this);
-        amountTextView.setText((int) payment.getPrice()); // Change this to access the amount field
-        amountTextView.setTextSize(20);
-        amountTextView.setPadding(16, 8, 16, 8);
-        amountTextView.setBackgroundResource(R.drawable.cell_background);
-        tableRow.addView(amountTextView);
-    }
-
-
-
-    /**
-     * setTableCategory()
-     * @param tableRow
-     * @param payment
-     * @return void
-     * Description: This method is responsible for setting the category in the table.
-     */
-    public void setTableCategory(TableRow tableRow, payment_class payment)
-    {
-        TextView categoryTextView = new TextView(this);
-        categoryTextView.setText(payment.getCategory()); // Change this to access the category field
-        categoryTextView.setTextSize(20);
-        categoryTextView.setPadding(16, 8, 16, 8);
-        categoryTextView.setBackgroundResource(R.drawable.cell_background);
-        tableRow.addView(categoryTextView);
-    }
-
-
-
-    /**
-     * setTableIsCleared()
-     * @param tableRow
-     * @param payment
-     * @return void
-     * Description: This method is responsible for setting the isCleared in the table.
-     */
-    public void setTableIsCleared(TableRow tableRow, payment_class payment)
-    {
-        TextView categoryTextView = new TextView(this);
-        boolean cleared = payment.getCleared();
-        String text = null;
-        if(cleared == true)
-        {
-            text = "Cleared";
+    private TextView getTextViewForIndex(int index) {
+        // Determine which TextView to use based on the index
+        switch (index) {
+            case 0:
+                return findViewById(R.id.latest_transactions_cell_1);
+            case 1:
+                return findViewById(R.id.latest_transactions_cell_2);
+            case 2:
+                return findViewById(R.id.latest_transactions_cell_3);
+            default:
+                throw new IllegalArgumentException("Invalid index: " + index);
         }
-        else if(cleared == false)
-        {
-            text = "Need to be pay";
-        }
-        categoryTextView.setText(text); // Change this to access the category field
-        categoryTextView.setTextSize(20);
-        categoryTextView.setPadding(16, 8, 16, 8);
-        categoryTextView.setBackgroundResource(R.drawable.cell_background);
-        tableRow.addView(categoryTextView);
     }
 }
