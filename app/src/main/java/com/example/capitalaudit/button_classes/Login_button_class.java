@@ -1,11 +1,13 @@
 package com.example.capitalaudit.button_classes;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.capitalaudit.Async.LoginAsyncTask;
 import com.example.capitalaudit.API.api_class;
@@ -40,12 +42,12 @@ public class Login_button_class implements LoginAsyncTask.LoginCallback
     /**
      * This function is used to handle the login button click event.
      * @param button
-     * @param login_context
+     * @param context
      */
-    public void login_button(Button button, Context login_context)
+    public void login_button(Button button, Context context)
     {
 
-        if(login_context == null)
+        if(context == null)
         {
             Log.d("test", "No context");
             return;
@@ -60,7 +62,7 @@ public class Login_button_class implements LoginAsyncTask.LoginCallback
                 CapitalAudit.setUsername(username);
                 String password = ((EditText) v.getRootView().findViewById(R.id.password_input)).getText().toString();
                 // Call the AsyncTask to perform login in the background
-                new LoginAsyncTask(login_context, Login_button_class.this, api).execute(username, password);
+                new LoginAsyncTask(context, Login_button_class.this, api).execute(username, password);
 
             }
         });
@@ -89,6 +91,14 @@ public class Login_button_class implements LoginAsyncTask.LoginCallback
         {
             // Error response
             Log.e("Test", "Failed logged in: " + result.getResponse());
+            showLoginError(context);
         }
+    }
+
+    private void showLoginError(Context context)
+    {
+        TextView errorMessageTextView = ((Activity) context).findViewById(R.id.errorMessageTextView);
+        errorMessageTextView.setVisibility(View.VISIBLE);
+
     }
 }

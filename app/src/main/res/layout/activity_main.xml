@@ -55,6 +55,20 @@
             android:textSize="20sp"
             android:id="@+id/login_btn"/>
 
+        <TextView
+            android:id="@+id/errorMessageTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#FF0000"
+            android:textSize="16sp"
+            android:visibility="gone"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="center"
+            android:text="Authentication failed. Please try again." />
+
+
     </LinearLayout>
 
 </RelativeLayout>

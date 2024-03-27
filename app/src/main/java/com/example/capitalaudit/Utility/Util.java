@@ -14,7 +14,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
 /**
@@ -89,6 +91,32 @@ public class Util {
 
         return filteredData;
     }
+
+    private String findMostCommonCategory(List<payment_class> payments) {
+        Map<String, Integer> categoryCountMap = new HashMap<>();
+
+        // Count the occurrences of each category
+        for (payment_class payment : payments) {
+            String category = payment.getCategory();
+            if (categoryCountMap.containsKey(category)) {
+                categoryCountMap.put(category, categoryCountMap.get(category) + 1);
+            } else {
+                categoryCountMap.put(category, 1);
+            }
+        }
+
+        // Find the category with the highest count
+        String mostCommonCategory = null;
+        int maxCount = 0;
+        for (Map.Entry<String, Integer> entry : categoryCountMap.entrySet()) {
+            if (entry.getValue() > maxCount) {
+                maxCount = entry.getValue();
+                mostCommonCategory = entry.getKey();
+            }
+        }
+        return mostCommonCategory;
+    }
+
 
 
 }

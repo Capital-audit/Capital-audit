@@ -64,15 +64,17 @@ public class Add_payment_button_class implements PaymentApiAsyncTask.onPaymentAd
 
                 Spinner spinnerDebitCredit = ((Activity) context).findViewById(R.id.debit_credit);
                 String selectedDebitCredit = spinnerDebitCredit.getSelectedItem().toString();
+                boolean debCred;
+                debCred = selectedDebitCredit == "Debit card";
 
                 CheckBox checkBox = ((Activity) context).findViewById(R.id.checkBox);
                 boolean isCleared = checkBox.isChecked();
 
                 EditText editTextDate = ((Activity) context).findViewById(R.id.editTextDate);
                 String enteredDate = editTextDate.getText().toString();
-                String json = json_class.payment_to_json(transactionPriceInt, selectedCategory, isCleared,selectedDebitCredit, enteredDate);
+                String json = json_class.payment_to_json(transactionPriceInt, selectedCategory, isCleared,debCred, enteredDate);
                 Log.d("paymenttoJson", json);
-                new PaymentApiAsyncTask(api, Add_payment_button_class.this, json);
+                new PaymentApiAsyncTask(api, Add_payment_button_class.this, json).execute();
                 }
         });
     }

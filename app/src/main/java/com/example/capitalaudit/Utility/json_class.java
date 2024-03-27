@@ -42,14 +42,14 @@ public class json_class
      * @param enteredDate
      * @return
      */
-    public static String payment_to_json(int transactionPriceInt, String selectedCategorry, boolean isCleared, String selectedDebitCredit, String enteredDate)
+    public static String payment_to_json(int transactionPriceInt, String selectedCategorry, boolean isCleared, boolean selectedDebitCredit, String enteredDate)
     {
         Gson gson = new Gson();
         java.util.Map<String, String> paymentData = new java.util.HashMap<>();
         paymentData.put("price", String.valueOf(transactionPriceInt));
         paymentData.put("category", selectedCategorry); // Assuming getCategory() returns an enum
         paymentData.put("cleared", String.valueOf(isCleared));
-        paymentData.put("debitCredit", selectedDebitCredit); // Assuming getDebitCredit() returns an enum
+        paymentData.put("debitCredit", String.valueOf(selectedDebitCredit)); // Assuming getDebitCredit() returns an enum
         paymentData.put("date", enteredDate);
         return gson.toJson(paymentData);
     }

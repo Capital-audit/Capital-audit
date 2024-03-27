@@ -1,5 +1,9 @@
 package com.example.capitalaudit.API;
+import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,6 +17,7 @@ import java.util.HashMap;
 import java.util.Vector;
 
 import com.example.capitalaudit.CapitalAudit;
+import com.example.capitalaudit.R;
 import com.example.capitalaudit.Utility.json_class;
 import com.example.capitalaudit.models.PaymentStorage;
 import com.example.capitalaudit.models.payment_class;
@@ -60,7 +65,7 @@ public class api_class {
      * @return
      * @throws IOException
      */
-    public api_response login_request(String json) throws IOException
+    public api_response login_request(String json, Context context) throws IOException
     {
 
         try
@@ -117,6 +122,7 @@ public class api_class {
                 else
                 {
                     Log.d("Test", "Access Token not found in JSON response");
+                    return new api_response(false, response.toString());
                 }
 
                 connection.disconnect();
@@ -130,6 +136,10 @@ public class api_class {
                     throw new IOException(errorMessage);
                 }
             }
+            else
+            {
+                return new api_response(false, null);
+            }
         }
         catch (IOException e)
         {
@@ -137,8 +147,6 @@ public class api_class {
             Log.d("Test", "Exception caused in api_class" + e);
             return new api_response(false, e.getMessage());
         }
-        return new api_response(false, null);
-
     }
 
 
@@ -151,6 +159,7 @@ public class api_class {
     {
         this.access_token = access_token;
     }
+
 
 
 
@@ -217,18 +226,7 @@ public class api_class {
 
                 if (success)
                 {
-                    Vector<payment_class> paymentClassVector = new Vector<>();
-                    CapitalAudit cp = CapitalAudit.getInstance();
-                    PaymentStorage ps = cp.getStorage();
-                    paymentClassVector = json_class.json_to_payment(String.valueOf(jsonResponse));
-                    ps.clearVector();
-                    assert paymentClassVector != null;
-
-                    for (payment_class payment : paymentClassVector) {
-                        ps.addPaymentToList(payment);
-                    }
                     return new api_response(true, response.toString());
-
                 }
                 else
                 {
@@ -248,7 +246,6 @@ public class api_class {
             return new api_response(false, e.getMessage());
         }
     }
-
 
 
     /**
@@ -307,5 +304,7 @@ public class api_class {
             return new api_response(false, e.getMessage());
         }
     }
+
+
 }
 

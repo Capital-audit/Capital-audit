@@ -244,6 +244,7 @@ public class HomeActivity extends AppCompatActivity implements DataFetchListener
             LineGraphSeries<DataPoint> series = new LineGraphSeries<>(dataPointArray);
             series.setColor(getResources().getColor(R.color.primary_color));
             graph.addSeries(series);
+
             graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
                 @Override
                 public String formatLabel(double value, boolean isValueX) {

@@ -24,8 +24,8 @@ public class PaymentApiAsyncTask extends AsyncTask<payment_class, Void, api_resp
 {
     private api_class api;
     private onPaymentAddResult paymentCallBack;
-
     private String json;
+
     public PaymentApiAsyncTask(api_class api, onPaymentAddResult paymentCallBack, String jsonString)
     {
         this.api = api;
@@ -36,9 +36,7 @@ public class PaymentApiAsyncTask extends AsyncTask<payment_class, Void, api_resp
     @Override
     protected api_response doInBackground(payment_class... params)
     {
-
-
-
+        Log.d("Test", "payment_api activated");
         try {
             Log.d("Test", "payment_api activated");
             return api.add_payment_api(json);
@@ -53,6 +51,7 @@ public class PaymentApiAsyncTask extends AsyncTask<payment_class, Void, api_resp
     @Override
     protected void onPostExecute(api_response result)
     {
+        Log.d("Test", "payment_api activated");
         // Handle the result as needed
         paymentCallBack.onPaymentAddResult(result);
     }
